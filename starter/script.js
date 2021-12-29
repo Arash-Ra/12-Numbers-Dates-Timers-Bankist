@@ -275,7 +275,7 @@ console.log(Number.isInteger(23));
 console.log(Number.isInteger(23.0));
 console.log(Number.isInteger(23 / 0));
 
-// Video 171
+//// Video 171
 
 // Square root
 console.log(Math.sqrt(25));
@@ -339,3 +339,102 @@ console.log((26.4).toFixed(0));
 // toFixed method returns string
 console.log((26.43).toFixed(2));
 console.log((26.43).toFixed(1));
+
+////video 172
+// Remainer numbers
+
+console.log(5 % 2);
+console.log(4 % 2);
+
+console.log('Even numbers between 1-100');
+for (let i = 0; i <= 100; i++) {
+  if (i % 2 === 0) console.log(i);
+}
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    // every 2nd row will become in orangered background color
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+
+    // every 3rd row will become in orangered background color
+
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+//// video 173
+// we can use underscore to use as a seperator to be able to read numbers
+const diameter = 287_460_000_000;
+console.log(diameter);
+
+const price1 = 345_99;
+const price2 = 15_00;
+
+console.log(price1);
+console.log(price2);
+// we cannot use underscor before or after rge number , example 3._45 is not allowed
+
+// we cannot use theunderscore seperator when we conver to a number
+console.log(Number('230_000'));
+// we will get error: NaN
+
+// It will parse to a number only the 230 part
+console.log(parseInt('230_000'));
+
+//// Video 174
+// Big interger
+// Bigest number
+console.log(Number.MAX_SAFE_INTEGER);
+// result: 9007199254740991
+console.log(2 ** 53 - 1);
+
+// we use n at theend of Big numbers that javascript can show them acurately
+console.log(978818391389138907662878123n);
+// result: 978818391389138907662878123n
+
+// ** we cannot operate Big int and regular numbers
+
+// Division
+console.log(10n / 3n);
+// result: 3n
+console.log(11n / 3n);
+// result: 3n
+
+//// video 175
+const now = new Date();
+console.log(now);
+//result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
+console.log(new Date('Tue Dec 28 2021 20:32'));
+//result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
+
+console.log(new Date(0));
+// 0 is milisecond after the start date in Javascript
+//result: Wed Dec 31 1969 19:00:00 GMT-0500 (Eastern Standard Time)
+// that time is the start of time in Javascript
+
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+//result: Sat Jan 03 1970 19:00:00 GMT-0500 (Eastern Standard Time)
+
+const future = new Date(2037, 10, 12, 19, 35, 21);
+console.log(future.getFullYear());
+// result: 2037
+console.log(future.getHours());
+// result: 19
+console.log(future.getMinutes());
+// result: 35
+console.log(future.getSeconds());
+
+console.log(future.getDate());
+// result: day -> 12
+console.log(future.getDay());
+//result: 4 -> 4th day of the week, it starts from sunday
+console.log(future);
+const bardiaBirth = new Date(2015, 10, 3, 10, 15, 3);
+console.log(bardiaBirth);
+
+console.log(Date.now());
+console.log(new Date(1640747109935));
+//result: Tue Dec 28 2021 22:05:09 GMT-0500 (Eastern Standard Time)
+
+future.setFullYear(2025);
+console.log(future);
