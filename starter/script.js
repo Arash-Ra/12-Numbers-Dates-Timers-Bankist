@@ -81,19 +81,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+
+    const displayDate = (labelDate.textContent = `${day}/${month}/${year}`);
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
+    <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
@@ -142,7 +152,7 @@ createUsernames(accounts);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display balance
   calcDisplayBalance(acc);
@@ -154,6 +164,19 @@ const updateUI = function (acc) {
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
+
+// Fake always logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+const hour = now.getHours();
+const min = now.getMinutes();
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -244,7 +267,7 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(acc, !sorted);
   sorted = !sorted;
 });
 
@@ -401,40 +424,40 @@ console.log(11n / 3n);
 // result: 3n
 
 //// video 175
-const now = new Date();
-console.log(now);
-//result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
-console.log(new Date('Tue Dec 28 2021 20:32'));
-//result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
+// const now = new Date();
+// console.log(now);
+// //result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
+// console.log(new Date('Tue Dec 28 2021 20:32'));
+// //result: Tue Dec 28 2021 20:32:30 GMT-0500 (Eastern Standard Time)
 
-console.log(new Date(0));
-// 0 is milisecond after the start date in Javascript
-//result: Wed Dec 31 1969 19:00:00 GMT-0500 (Eastern Standard Time)
-// that time is the start of time in Javascript
+// console.log(new Date(0));
+// // 0 is milisecond after the start date in Javascript
+// //result: Wed Dec 31 1969 19:00:00 GMT-0500 (Eastern Standard Time)
+// // that time is the start of time in Javascript
 
-console.log(new Date(3 * 24 * 60 * 60 * 1000));
-//result: Sat Jan 03 1970 19:00:00 GMT-0500 (Eastern Standard Time)
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+// //result: Sat Jan 03 1970 19:00:00 GMT-0500 (Eastern Standard Time)
 
-const future = new Date(2037, 10, 12, 19, 35, 21);
-console.log(future.getFullYear());
-// result: 2037
-console.log(future.getHours());
-// result: 19
-console.log(future.getMinutes());
-// result: 35
-console.log(future.getSeconds());
+// const future = new Date(2037, 10, 12, 19, 35, 21);
+// console.log(future.getFullYear());
+// // result: 2037
+// console.log(future.getHours());
+// // result: 19
+// console.log(future.getMinutes());
+// // result: 35
+// console.log(future.getSeconds());
 
-console.log(future.getDate());
-// result: day -> 12
-console.log(future.getDay());
-//result: 4 -> 4th day of the week, it starts from sunday
-console.log(future);
-const bardiaBirth = new Date(2015, 10, 3, 10, 15, 3);
-console.log(bardiaBirth);
+// console.log(future.getDate());
+// // result: day -> 12
+// console.log(future.getDay());
+// //result: 4 -> 4th day of the week, it starts from sunday
+// console.log(future);
+// const bardiaBirth = new Date(2015, 10, 3, 10, 15, 3);
+// console.log(bardiaBirth);
 
-console.log(Date.now());
-console.log(new Date(1640747109935));
-//result: Tue Dec 28 2021 22:05:09 GMT-0500 (Eastern Standard Time)
+// console.log(Date.now());
+// console.log(new Date(1640747109935));
+// //result: Tue Dec 28 2021 22:05:09 GMT-0500 (Eastern Standard Time)
 
-future.setFullYear(2025);
-console.log(future);
+// future.setFullYear(2025);
+// console.log(future);
