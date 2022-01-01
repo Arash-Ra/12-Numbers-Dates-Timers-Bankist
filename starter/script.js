@@ -21,9 +21,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-27T23:36:17.929Z',
+    '2021-12-30T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -80,6 +80,21 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (24 * 60 * 60 * 1000));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  // console.log(daysPassed);
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} day ago`;
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
@@ -90,13 +105,8 @@ const displayMovements = function (acc, sort = false) {
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
-
     const date = new Date(acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-
-    const displayDate = (labelDate.textContent = `${day}/${month}/${year}`);
+    const displayDate = formatMovementDate(date);
 
     const html = `
       <div class="movements__row">
@@ -373,13 +383,13 @@ console.log((26.43).toFixed(1));
 ////video 172
 // Remainer numbers
 
-console.log(5 % 2);
-console.log(4 % 2);
+// console.log(5 % 2);
+// console.log(4 % 2);
 
-console.log('Even numbers between 1-100');
-for (let i = 0; i <= 100; i++) {
-  if (i % 2 === 0) console.log(i);
-}
+// console.log('Even numbers between 1-100');
+// for (let i = 0; i <= 100; i++) {
+//   if (i % 2 === 0) console.log(i);
+// }
 
 labelBalance.addEventListener('click', function () {
   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
@@ -468,3 +478,12 @@ console.log(11n / 3n);
 
 // future.setFullYear(2025);
 // console.log(future);
+
+// calculating the days passed:
+const future1 = new Date(2037, 10, 12, 19, 35, 21);
+console.log(future1);
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (24 * 60 * 60 * 1000);
+
+console.log(calcDaysPassed(new Date(2037, 3, 26), new Date(2037, 3, 10)));
