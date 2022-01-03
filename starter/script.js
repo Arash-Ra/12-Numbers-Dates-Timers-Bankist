@@ -527,3 +527,16 @@ const calcDaysPassed = (date1, date2) =>
   Math.abs(date2 - date1) / (24 * 60 * 60 * 1000);
 
 console.log(calcDaysPassed(new Date(2037, 3, 26), new Date(2037, 3, 10)));
+//// video 179
+const num = 837365837.42;
+console.log('US format number:', new Intl.NumberFormat('us-US').format(num));
+
+console.log(
+  'Germany format number:',
+  new Intl.NumberFormat('de-DE').format(num)
+);
+
+console.log(
+  navigator.language,
+  new Intl.NumberFormat(navigator.language).format(num)
+);
