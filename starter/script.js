@@ -100,6 +100,7 @@ const formatMovementDate = function (date, locale) {
 // Genaral function that we can use anywhere to format numbers.
 // the parametrs are value,locale,currency
 // the parametrs are value,locale,currency
+// the parametrs are value,locale,currency
 const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
